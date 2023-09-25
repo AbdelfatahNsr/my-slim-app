@@ -33,5 +33,15 @@ return function (App $app) {
         return $response
             ->withHeader('Content-Type', 'application/xml')
             ->withStatus(200);
-        });
+    });
+
+    $app->get('/userlist',function (Request $request, Response $response) {
+        $userDetails = $request->getAttribute('user_details');
+
+        $response->getBody()->write(json_encode($userDetails));
+        
+        return $response
+            ->withHeader('Content-Type', 'application/json')
+            ->withStatus(200);
+    });
 };

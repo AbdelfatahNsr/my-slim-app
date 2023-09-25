@@ -10,6 +10,7 @@ use DI\ContainerBuilder;
 use Slim\Factory\AppFactory;
 use Slim\Factory\ServerRequestCreatorFactory;
 use App\Middleware\XMLParserMiddleware;
+use App\Middleware\UserDetailsMiddleware;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -40,8 +41,14 @@ AppFactory::setContainer($container);
 $app = AppFactory::create();
 $callableResolver = $app->getCallableResolver();
 
-$app->add(new XMLParserMiddleware());
+$userDetails = [
+    'id' => 1,
+    'username' => 'john_doe',
+    'email' => 'john@example.com',
+];
 
+$app->add(new XMLParserMiddleware());
+$app->add(new UserDetailsMiddleware($userDetails));
 
 // Register middleware
 $middleware = require __DIR__ . '/../app/middleware.php';
