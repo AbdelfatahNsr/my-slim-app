@@ -11,6 +11,7 @@ use Slim\Factory\AppFactory;
 use Slim\Factory\ServerRequestCreatorFactory;
 use App\Middleware\XMLParserMiddleware;
 use App\Middleware\UserDetailsMiddleware;
+use App\Middleware\ETagMiddleware;
 
 require __DIR__ . '/../vendor/autoload.php';
 
@@ -49,6 +50,7 @@ $userDetails = [
 
 $app->add(new XMLParserMiddleware());
 $app->add(new UserDetailsMiddleware($userDetails));
+$app->add(new ETagMiddleware());
 
 // Register middleware
 $middleware = require __DIR__ . '/../app/middleware.php';

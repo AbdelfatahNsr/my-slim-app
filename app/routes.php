@@ -44,4 +44,18 @@ return function (App $app) {
             ->withHeader('Content-Type', 'application/json')
             ->withStatus(200);
     });
+
+    $app->get('/user', function (Request $request, Response $response) {
+        $userData = [
+            'id' => 1,
+            'name' => 'John Doe',
+            'email' => 'john@example.com',
+        ];
+    
+        $response->getBody()->write(json_encode($userData));
+    
+        $response = $response->withHeader('Content-Type', 'application/json');
+    
+        return $response;
+    });
 };
