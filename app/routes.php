@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
-
+use App\Application\Middleware\ETagMiddleware;
 return function (App $app) {
     $app->options('/{routes:.*}', function (Request $request, Response $response) {
         // CORS Pre-Flight OPTIONS Request Handler
@@ -57,5 +57,5 @@ return function (App $app) {
         $response = $response->withHeader('Content-Type', 'application/json');
     
         return $response;
-    });
+    })->add(new ETagMiddleware());
 };
